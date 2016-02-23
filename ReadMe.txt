@@ -1,6 +1,6 @@
 Advanced Topics
 ===============
-I'm going to be rewriting all of this.
+Now branched! I’m going to be rewriting all of this.
 
 This Section serves as a collective for advanced topics that most developers
 using this library will never need to know about, but that may be useful for

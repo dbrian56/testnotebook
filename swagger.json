@@ -11,7 +11,7 @@
         "license": {
             "name": "Closed Source.  Do not redistribute."
         },
-        "title": "Policy Master API"
+        "title": "Dyn RTTD API"
     },
 
     "paths": {

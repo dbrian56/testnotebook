@@ -1,0 +1,500 @@
+{
+    "swagger": "2.0",
+
+    "info": {
+        "version": "0.0.2",
+        "contact": {
+            "email": "wesleycrushers@dyn.com",
+            "name": "Wesley Crushers"
+        },
+        "description": "This API is responsible for Traffic Management Policies and the attachment of those policies to Domains.",
+        "license": {
+            "name": "Closed Source.  Do not redistribute."
+        },
+        "title": "Policy Master API"
+    },
+
+    "paths": {
+
+        "/policies": {
+            "get": {
+                "description": "Get 'Policy' objects for a customer.",
+                "operationId": "get_policies",
+                "parameters": [
+                    {
+                      "$ref": "#/parameters/limitParam"
+                    },
+                    {
+                      "$ref": "#/parameters/offsetParam"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/litePoliciesResponse"
+                    }
+                }
+            }
+        },
+
+        "/policies/{policy_name}": {
+            "get": {
+                "description": "Get 'Policy' object that matches **policy_name**.",
+                "operationId": "get_policy",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref" : "#/responses/policyResponse"
+                    },
+                    "404": {
+                        "$ref": "#/responses/notFoundError"
+                    }
+                }
+            },
+            "put": {
+                "description": "Create or Update a policy.\n",
+                "operationId": "update_policy",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/policyInput"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/policyResponse"
+                    },
+                    "201": {
+                        "$ref": "#/responses/policyResponse"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a policy.\n",
+                "operationId": "delete_policy",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful policy delete."
+                    },
+                    "404": {
+                        "$ref": "#/responses/notFoundError"
+                    }
+                }
+            }
+        },
+
+        "/attachments/policies": {
+            "get": {
+                "description": "Get all the attachments for the customer.\n",
+                "operationId": "get_all_attachments",
+                "parameters": [
+                    {
+                      "$ref": "#/parameters/limitParam"
+                    },
+                    {
+                      "$ref": "#/parameters/offsetParam"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                      "$ref": "#/responses/attachmentsResponse"
+                    }
+                }
+            }
+        },
+
+        "/attachments/policies/{policy_name}": {
+            "get": {
+                "description": "Get the attachments for the named policy.\n",
+                "operationId": "get_policy_attachments",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/attachmentsResponse"
+                    },
+                    "404": {
+                      "$ref": "#/responses/notFoundError"
+                    }
+                }
+            },
+            "put": {
+                "description": "Replace all the attachments for the named policy.  This will delete existing attachments and replace them with the new list.\n",
+                "operationId": "update_policy_attachments",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/attachmentListInput"
+                  }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful replacement of attachments."
+                    },
+                    "404": {
+                      "$ref": "#/responses/notFoundError"
+                    }
+                }            },
+            "delete": {
+                "description": "Delete all the attachments for the named policy.\n",
+                "operationId": "delete_policy_attachments",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful delete."
+                    },
+                    "404": {
+                      "$ref": "#/responses/notFoundError"
+                    }
+                }
+            }
+        },
+        "/attachments/policies/{policy_name}/{domain_name}": {
+            "get": {
+                "description": "Get the details for the attachment of the policy to the domain.\n",
+                "operationId": "get_attachment",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/domainNameParam"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/attachmentResponse"
+                    },
+                    "404": {
+                        "$ref": "#/responses/notFoundError"
+                    }
+                }
+            },
+            "put": {
+                "description": "Create or update an attachment.\n",
+                "operationId": "update_attachment",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/domainNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/attachmentInput"
+                  }
+                ],
+                "responses": {
+                    "201": {
+                        "$ref": "#/responses/attachmentResponse"
+                    },
+                    "200": {
+                        "$ref": "#/responses/attachmentResponse"
+                    },
+                    "404": {
+                      "$ref": "#/responses/notFoundError"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete the link between the domain and the policy.\n",
+                "operationId": "delete_attachment",
+                "parameters": [
+                  {
+                    "$ref": "#/parameters/policyNameParam"
+                  },
+                  {
+                    "$ref": "#/parameters/domainNameParam"
+                  }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful delete."
+                    },
+                    "404": {
+                        "$ref": "#/responses/notFoundError"
+                    }
+                }
+            }
+        }
+    },
+
+    "parameters": {
+      "policyNameParam": {
+        "name": "policy_name",
+        "in": "path",
+        "description": "name of policy",
+        "required": true,
+        "type": "string"
+      },
+      "domainNameParam": {
+        "name": "domain_name",
+        "in": "path",
+        "description": "domain to link to policy",
+        "required": true,
+        "type": "string"
+      },
+      "offsetParam": {
+        "name": "offset",
+        "in": "query",
+        "description": "Offset in the complete result set to start with.",
+        "required": false,
+        "type": "integer",
+        "format": "int32"
+      },
+      "limitParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "max records to return",
+        "required": false,
+        "type": "integer",
+        "format": "int32"
+      },
+      "policyInput": {
+        "name": "policy",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/Policy"
+        }
+      },
+      "attachmentInput": {
+        "name": "attachment",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/PolicyAttachment"
+        }
+      },
+      "attachmentListInput": {
+        "name": "attachement_list",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/AttachmentCollection"
+        }
+      }
+    },
+
+    "responses": {
+      "notFoundError" : {
+        "description": "Response used when a resource is not found.",
+        "schema": {
+          "$ref" : "#/definitions/Error"
+        }
+      },
+      "litePoliciesResponse": {
+        "description": "An object containing a list of Lite Policy objects.",
+        "schema" : {
+          "$ref": "#/definitions/LitePolicies"
+        }
+      },
+      "policyResponse" : {
+        "description": "Details for the named policy.",
+        "schema" : {
+          "$ref": "#/definitions/Policy"
+        }
+      },
+      "attachmentsResponse" : {
+        "description": "Object containing a list of attachments.",
+        "schema" : {
+          "$ref": "#/definitions/AttachmentCollection"
+        }
+      },
+      "attachmentResponse" : {
+        "description": "Named Attachment for a customer",
+        "schema" : {
+          "$ref": "#/definitions/PolicyAttachment"
+        }
+      }
+    },
+
+    "definitions": {
+        "Error": {
+          "description": "The schema for an error message",
+          "type":  "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "The error message from the server."
+            }
+          }
+        },
+
+        "ObjectRef": {
+          "description": "An object that contains a url to the full object.",
+          "type": "object",
+          "required": [
+                  "_self"
+                ],
+          "properties": {
+            "_self": {
+              "type": "string",
+              "format": "url"
+            }
+          }
+        },
+
+        "NamedObjectRef": {
+          "description": "An object that contains a url to the full object along with a short name.",
+          "type": "object",
+          "required": [
+                  "_self"
+                ],
+          "properties": {
+            "_self": {
+              "type": "string",
+              "format": "url"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+
+        "LitePolicy": {
+            "description": "A light view of a Traffic Management policy.",
+            "allOf": [
+              {
+                "$ref": "#/definitions/ObjectRef"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                      "type": "string",
+                      "description": "unique name of policy"
+                  },
+                  "is_enabled": {
+                      "type": "boolean",
+                      "description": "true if the policy is in use."
+                  },
+                  "ttl": {
+                      "type": "integer",
+                      "format": "int32",
+                      "minimum": 0
+                  }
+                }
+              }
+            ]
+        },
+
+       "LitePolicies": {
+          "description": "A collection of Traffic Management Lite Policy objects.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ObjectRef"
+            },
+            {
+              "type": "object",
+              "properties": {
+                  "_items": {
+                      "type": "array",
+                      "items": {
+                        "$ref" : "#/definitions/LitePolicy"
+                      }
+                  }
+              }
+            }
+          ]
+      },
+
+      "Policy": {
+          "description": "A Traffic Management policy.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ObjectRef"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "unique name of policy"
+                },
+                "is_enabled": {
+                    "type": "boolean",
+                    "description": "true if the policy is in use."
+                },
+                "ttl": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0
+                },
+                "answers": {
+                    "type": "object"
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                },
+                "attachments" : {
+                  "$ref": "#/definitions/AttachmentCollection"
+                }
+              }
+            }
+          ]
+      },
+
+      "PolicyAttachment": {
+        "description": "An attachment of a Policy to an Domain.",
+        "allOf": [
+          {
+            "$ref": "#/definitions/ObjectRef"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "addon": {
+                "$ref": "#/definitions/NamedObjectRef"
+              },
+              "domain": {
+                "$ref": "#/definitions/NamedObjectRef"
+              }
+            }
+          }
+        ]
+      },
+
+      "AttachmentCollection" : {
+        "description":  "A collection of attachments.",
+        "allOf": [
+          {
+            "$ref": "#/definitions/ObjectRef"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_items": {
+                "type": "array",
+                "items" : {
+                  "$ref": "#/definitions/PolicyAttachment"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+}

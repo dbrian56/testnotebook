@@ -2,7 +2,7 @@
     "swagger": "2.0",
 
     "info": {
-        "version": "0.0.2",
+        "version": "0.0.4",
         "contact": {
             "email": "wesleycrushers@dyn.com",
             "name": "Wesley Crushers"
@@ -11,12 +11,298 @@
         "license": {
             "name": "Closed Source.  Do not redistribute."
         },
-        "title": "Dyn RTTD API"
+        "title": "Policy Master API"
     },
 
     "paths": {
 
-        "/policies": {
+        "/assets/community": {
+          "get": {
+              "description":  "Get the list of community assets.",
+              "operationId": "get_community_assets",
+              "responses": {
+                  "200": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          },
+
+          "post": {
+              "description": "Create new community assets.",
+              "operationId": "create_community_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetListInput"
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          }
+        },
+
+        "/assets/community/{asset_type}": {
+          "get": {
+              "description":  "Get the list of community assets.",
+              "operationId": "get_typed_community_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetTypeParam"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          },
+
+          "post": {
+              "description": "Create new community assets.",
+              "operationId": "create_typed_community_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetTypeParam"
+                  },
+                  {
+                    "$ref": "#/parameters/assetListInput"
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          }
+        },
+
+        "/assets/community/{asset_type}/{asset_id}": {
+          "get": {
+            "description": "Get detailed asset information.",
+            "operationId": "get_community_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          },
+          "put": {
+            "description": "Update an existing asset.",
+            "operationId": "update_community_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              },
+              {
+                "$ref": "#/parameters/assetInput"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "400": {
+                  "$ref": "#/responses/badRequestError"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          },
+          "delete": {
+            "description": "Delete community asset.",
+            "operationId": "delete_community_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          }
+        },
+
+        "/assets/private": {
+          "get": {
+              "description":  "Get the list of private assets.",
+              "operationId": "get_private_assets",
+              "responses": {
+                  "200": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          },
+
+          "post": {
+              "description": "Create new private assets.",
+              "operationId": "create_private_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetListInput"
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          }
+        },
+
+        "/assets/private/{asset_type}": {
+          "get": {
+              "description":  "Get the list of private assets.",
+              "operationId": "get_typed_private_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetTypeParam"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          },
+
+          "post": {
+              "description": "Create new private assets.",
+              "operationId": "create_typed_private_assets",
+              "parameters": [
+                  {
+                    "$ref": "#/parameters/assetTypeParam"
+                  },
+                  {
+                    "$ref": "#/parameters/assetListInput"
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "$ref": "#/responses/assetsResponse"
+                    },
+                  "400": {
+                      "$ref": "#/responses/badRequestError"
+                  }
+              }
+          }
+        },
+
+        "/assets/private/{asset_type}/{asset_id}": {
+          "get": {
+            "description": "Get detailed asset information.",
+            "operationId": "get_private_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          },
+          "put": {
+            "description": "Update an existing asset.",
+            "operationId": "update_private_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              },
+              {
+                "$ref": "#/parameters/assetInput"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "400": {
+                  "$ref": "#/responses/badRequestError"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          },
+          "delete": {
+            "description": "Delete private asset.",
+            "operationId": "delete_private_asset",
+            "parameters": [
+              {
+                "$ref": "#/parameters/assetTypeParam"
+              },
+              {
+                "$ref": "#/parameters/assetIdParam"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "$ref" : "#/responses/assetResponse"
+              },
+              "404": {
+                  "$ref": "#/responses/notFoundError"
+              }
+            }
+          }
+        },
+
+        "/policies/rttd": {
             "get": {
                 "description": "Get 'Policy' objects for a customer.",
                 "operationId": "get_policies",
@@ -36,7 +322,7 @@
             }
         },
 
-        "/policies/{policy_name}": {
+        "/policies/rttd/{policy_name}": {
             "get": {
                 "description": "Get 'Policy' object that matches **policy_name**.",
                 "operationId": "get_policy",
@@ -93,7 +379,7 @@
             }
         },
 
-        "/attachments/policies": {
+        "/attachments/rttd": {
             "get": {
                 "description": "Get all the attachments for the customer.\n",
                 "operationId": "get_all_attachments",
@@ -113,7 +399,7 @@
             }
         },
 
-        "/attachments/policies/{policy_name}": {
+        "/attachments/rttd/{policy_name}": {
             "get": {
                 "description": "Get the attachments for the named policy.\n",
                 "operationId": "get_policy_attachments",
@@ -168,7 +454,7 @@
                 }
             }
         },
-        "/attachments/policies/{policy_name}/{domain_name}": {
+        "/attachments/rttd/{policy_name}/{domain_name}": {
             "get": {
                 "description": "Get the details for the attachment of the policy to the domain.\n",
                 "operationId": "get_attachment",
@@ -269,6 +555,34 @@
         "type": "integer",
         "format": "int32"
       },
+      "assetIdParam": {
+        "name": "asset_id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "assetTypeParam": {
+        "name": "asset_type",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "assetInput": {
+        "name": "asset",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/Asset"
+        }
+      },
+      "assetListInput": {
+        "name": "assets",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/AssetCollection"
+        }
+      },
       "policyInput": {
         "name": "policy",
         "in": "body",
@@ -302,6 +616,12 @@
           "$ref" : "#/definitions/Error"
         }
       },
+      "badRequestError" : {
+        "description": "Response used if there is an error in the request.",
+        "schema": {
+          "$ref" : "#/definitions/Error"
+        }
+      },
       "litePoliciesResponse": {
         "description": "An object containing a list of Lite Policy objects.",
         "schema" : {
@@ -324,6 +644,18 @@
         "description": "Named Attachment for a customer",
         "schema" : {
           "$ref": "#/definitions/PolicyAttachment"
+        }
+      },
+      "assetResponse" : {
+        "description": "Details for the asset.",
+        "schema" : {
+          "$ref": "#/definitions/Asset"
+        }
+      },
+      "assetsResponse" : {
+        "description": "A list of assets.",
+        "schema" : {
+          "$ref": "#/definitions/AssetCollection"
         }
       }
     },
@@ -354,24 +686,66 @@
           }
         },
 
-        "NamedObjectRef": {
-          "description": "An object that contains a url to the full object along with a short name.",
-          "type": "object",
-          "required": [
-                  "_self"
-                ],
-          "properties": {
-            "_self": {
-              "type": "string",
-              "format": "url"
-            },
-            "name": {
-              "type": "string"
-            }
-          }
+        "Asset": {
+            "description": "A asset that can be used in a policy.",
+            "allOf": [
+              {
+                "$ref": "#/definitions/ObjectRef"
+              },
+              {
+                "type": "object",
+                "required": [
+                    "type",
+                    "name",
+                    "value"
+                  ],
+                  "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier for an asset.  It must be unique within an asset type."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "The type of the asset.  Can be one of 'cdn' or 'endpoint'."
+                  },
+                  "name": {
+                      "type": "string",
+                      "description": "Name of the asset.  Community assets have unique names, Private asset names are unique for each customer."
+                  },
+                  "transport": {
+                      "type": "string",
+                      "description": "Either ipv4 or ipv6"
+                  },
+                  "value": {
+                      "type": "string",
+                      "description": "The value of the asset, like an ip address, cloud name, url."
+                  }
+                }
+              }
+            ]
         },
 
-        "LitePolicy": {
+       "AssetCollection": {
+          "description": "A collection of Assets.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ObjectRef"
+            },
+            {
+              "type": "object",
+              "properties": {
+                  "_items": {
+                      "type": "array",
+                      "items": {
+                        "$ref" : "#/definitions/Asset"
+                      }
+                  }
+              }
+            }
+          ]
+      },
+
+      "LitePolicy": {
             "description": "A light view of a Traffic Management policy.",
             "allOf": [
               {
@@ -444,10 +818,7 @@
                     "type": "object"
                 },
                 "rules": {
-                    "type": "array",
-                    "items": {
-                      "type": "object"
-                    }
+                    "type": "object"
                 },
                 "attachments" : {
                   "$ref": "#/definitions/AttachmentCollection"
@@ -466,11 +837,20 @@
           {
             "type": "object",
             "properties": {
-              "addon": {
-                "$ref": "#/definitions/NamedObjectRef"
+              "policy": {
+                "$ref": "#/definitions/ObjectRef"
+              },
+              "zone": {
+                "$ref": "#/definitions/ObjectRef"
               },
               "domain": {
-                "$ref": "#/definitions/NamedObjectRef"
+                "type": "string"
+              },
+              "rtypes": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
               }
             }
           }

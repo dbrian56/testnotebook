@@ -322,13 +322,13 @@
             }
         },
 
-        "/policies/rttd/{policy_name}": {
+        "/policies/rttd/{policy_slug}": {
             "get": {
-                "description": "Get 'Policy' object that matches **policy_name**.",
+                "description": "Get 'Policy' object that matches **policy_slug**.",
                 "operationId": "get_policy",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   }
                 ],
                 "responses": {
@@ -345,7 +345,7 @@
                 "operationId": "update_policy",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   },
                   {
                     "$ref": "#/parameters/policyInput"
@@ -365,7 +365,7 @@
                 "operationId": "delete_policy",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   }
                 ],
                 "responses": {
@@ -399,13 +399,13 @@
             }
         },
 
-        "/attachments/rttd/{policy_name}": {
+        "/attachments/rttd/{policy_slug}": {
             "get": {
-                "description": "Get the attachments for the named policy.\n",
+                "description": "Get the attachments for the specified policy.\n",
                 "operationId": "get_policy_attachments",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   }
                 ],
                 "responses": {
@@ -418,11 +418,11 @@
                 }
             },
             "put": {
-                "description": "Replace all the attachments for the named policy.  This will delete existing attachments and replace them with the new list.\n",
+                "description": "Replace all the attachments for the specified policy.  This will delete existing attachments and replace them with the new list.\n",
                 "operationId": "update_policy_attachments",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   },
                   {
                     "$ref": "#/parameters/attachmentListInput"
@@ -437,11 +437,11 @@
                     }
                 }            },
             "delete": {
-                "description": "Delete all the attachments for the named policy.\n",
+                "description": "Delete all the attachments for the specified policy.\n",
                 "operationId": "delete_policy_attachments",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   }
                 ],
                 "responses": {
@@ -454,13 +454,13 @@
                 }
             }
         },
-        "/attachments/rttd/{policy_name}/{domain_name}": {
+        "/attachments/rttd/{policy_slug}/{domain_name}": {
             "get": {
                 "description": "Get the details for the attachment of the policy to the domain.\n",
                 "operationId": "get_attachment",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   },
                   {
                     "$ref": "#/parameters/domainNameParam"
@@ -480,7 +480,7 @@
                 "operationId": "update_attachment",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   },
                   {
                     "$ref": "#/parameters/domainNameParam"
@@ -506,7 +506,7 @@
                 "operationId": "delete_attachment",
                 "parameters": [
                   {
-                    "$ref": "#/parameters/policyNameParam"
+                    "$ref": "#/parameters/policySlugParam"
                   },
                   {
                     "$ref": "#/parameters/domainNameParam"
@@ -525,10 +525,10 @@
     },
 
     "parameters": {
-      "policyNameParam": {
-        "name": "policy_name",
+      "policySlugParam": {
+        "name": "policy_slug",
         "in": "path",
-        "description": "name of policy",
+        "description": "slug of policy",
         "required": true,
         "type": "string"
       },
@@ -629,7 +629,7 @@
         }
       },
       "policyResponse" : {
-        "description": "Details for the named policy.",
+        "description": "Details for the specified policy.",
         "schema" : {
           "$ref": "#/definitions/Policy"
         }
@@ -682,6 +682,26 @@
             "_self": {
               "type": "string",
               "format": "url"
+            }
+          }
+        },
+
+
+        "ZoneRef": {
+          "description": "An object that contains a url to the full object and a name.",
+          "type": "object",
+          "required": [
+                  "_self",
+                  "name"
+                ],
+          "properties": {
+            "_self": {
+              "type": "string",
+              "format": "url"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the zone."
             }
           }
         },
@@ -756,7 +776,7 @@
                 "properties": {
                   "name": {
                       "type": "string",
-                      "description": "unique name of policy"
+                      "description": "name of policy"
                   },
                   "is_enabled": {
                       "type": "boolean",
@@ -803,7 +823,7 @@
               "properties": {
                 "name": {
                     "type": "string",
-                    "description": "unique name of policy"
+                    "description": "name of policy"
                 },
                 "is_enabled": {
                     "type": "boolean",
@@ -841,7 +861,7 @@
                 "$ref": "#/definitions/ObjectRef"
               },
               "zone": {
-                "$ref": "#/definitions/ObjectRef"
+                "$ref": "#/definitions/ZoneRef"
               },
               "domain": {
                 "type": "string"

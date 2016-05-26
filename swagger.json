@@ -302,7 +302,7 @@
           }
         },
 
-        "/policies/rttd": {
+        "/dynamic_steering/policies": {
             "get": {
                 "description": "Get 'Policy' objects for a customer.",
                 "operationId": "get_policies",
@@ -322,7 +322,7 @@
             }
         },
 
-        "/policies/rttd/{policy_slug}": {
+        "/dynamic_steering/policies/{policy_slug}": {
             "get": {
                 "description": "Get 'Policy' object that matches **policy_slug**.",
                 "operationId": "get_policy",
@@ -379,7 +379,7 @@
             }
         },
 
-        "/attachments/rttd": {
+        "/attachments/policies": {
             "get": {
                 "description": "Get all the attachments for the customer.\n",
                 "operationId": "get_all_attachments",
@@ -399,7 +399,7 @@
             }
         },
 
-        "/attachments/rttd/{policy_slug}": {
+        "/attachments/policies/{policy_slug}": {
             "get": {
                 "description": "Get the attachments for the specified policy.\n",
                 "operationId": "get_policy_attachments",
@@ -454,7 +454,7 @@
                 }
             }
         },
-        "/attachments/rttd/{policy_slug}/{domain_name}": {
+        "/attachments/policies/{policy_slug}/{domain_name}": {
             "get": {
                 "description": "Get the details for the attachment of the policy to the domain.\n",
                 "operationId": "get_attachment",
